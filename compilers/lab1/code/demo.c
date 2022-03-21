@@ -1,5 +1,5 @@
 //注释部分可自动忽略
-int main () {
+int main(){
 	/*简单写一个上台阶问题*/
 	int n = 20;
 	int dp[n];
@@ -16,6 +16,8 @@ int main () {
 	i--;
 	while(i < n){
 		i++;
+		if(i == 15)
+			break;
 	}
 	return 1;
 }

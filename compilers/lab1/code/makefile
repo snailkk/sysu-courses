@@ -1,9 +1,9 @@
 all:
 	flex clang.l
-	gcc lex.yy.c -lfl
+	gcc -o clang.out lex.yy.c -lfl
 run:
-	./a.out demo.c
+	./clang.out demo.c
 clean:
 	rm lex.yy.c
-	rm ./a.out
 	rm tokens.txt
+	rm ./clang.out
