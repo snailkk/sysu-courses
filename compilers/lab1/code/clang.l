@@ -6,9 +6,9 @@
 %option nodefault
 /*定义部分*/
 %{
-    #include "stdio.h"
-    #include "stdlib.h"
-    #include "string.h"
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
     #include "stdarg.h"
     int yycolumn = 1;
     enum yytokentype{
@@ -19,17 +19,20 @@
 
         IDN,
 
-        LP , RP , SLP , SRP , BLP , BRP , SEMI , COMMA
+        LP , RP , SLP , SRP , BLP , BRP , SEMI , COMMA , ASSIGN,
 
         REL_OP , AR_OP , LOGIC_OP
     };
+
     typedef union{
         int type_int;
         float type_float;
         char type_char;
         char type_id[32];
     }YYLVAL;
+    #define YYSTYPE YYLVAL
     #define ECHO fwrite(yytext,yyleng,1,yyout)
+    YYLVAL yylval;
 %}
 /*辅助定义*/
 id [A-Za-z][A-Za-z0-9]*
@@ -37,7 +40,6 @@ int [0-9]+
 float ([0-9]*\.[0-9]+)|([0-9]+\.)
 
 %%
- /*注释处理 单行+多行*/
 \/\/[^\n]*  {;}
 \/\*(\s|.)*?\*\/ {;}
 
@@ -53,7 +55,6 @@ float ([0-9]*\.[0-9]+)|([0-9]+\.)
 "while" {return WHILE;}
 "for" {return FOR;}
 
-{id} {strcpy(yylval.type_id,yytext); return IDN;}
 {int} {yylval.type_int=atoi(yytext);return CONST_INT;}
 {float} {yylval.type_float=atof(yytext); return CONST_FLOAT;}
 
@@ -86,15 +87,17 @@ int  main(int argc,char *argv[]){
     }
     char out_file[100] = "tokens.txt";
     FILE *f_o;
-    if(f_o = fopen(out_file,"a+") == NULL){
+    if((f_o = fopen(out_file,"a+")) == NULL){
         fprintf(stderr,"Can't open %s\n",out_file);
         return 0;
     }
 
     int tok;
-    while(tok == yylex()){
+    while(tok = yylex()){
         printf("%d",tok);
-        if(tok == CONST_INT) printf(" = %d\n",yylval.type_int);
+        if(tok == CONST_INT){
+		 printf(" = %d\n",yylval.type_int);
+	}
         else printf("\n");
     }
     fclose(f_o);
