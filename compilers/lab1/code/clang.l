@@ -59,7 +59,7 @@ float ([0-9]*\.[0-9]+)|([0-9]+\.)
 {float} {yylval.type_float=atof(yytext); return CONST_FLOAT;}
 
 ">"|"<"|">="|"<="|"=="|"!=" {strcpy(yylval.type_id,yytext); return REL_OP;}
-"+"|"-"|"+="|"-="|"++"|"--"|"*"|"/" {strcpy(yylval.type_id,yytext); return REL_OP;}
+"+"|"-"|"+="|"-="|"++"|"--"|"*"|"/" {strcpy(yylval.type_id,yytext); return AR_OP;}
 "&&"|"||"|"!" {strcpy(yylval.type_id,yytext); return LOGIC_OP;}
 
 ";" {return SEMI;}
