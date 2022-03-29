@@ -156,7 +156,7 @@ $$
 比较两个排序之间，评价存在分歧的对的数量。
 
 $$
-  K(\tau_1, \tau_2) = | \{(i, j) : i < j, \ (\tau_1(i) < \tau_1(j) \wedge \tau_2(i) > \tau_2(j)) \ \vee \ (\tau_1(i) > \tau_1(j) \wedge \tau_2(i) < \tau_2(j)) \} |
+K(\tau_1, \tau_2) = | \{(i, j) : i < j, \ (\tau_1(i) < \tau_1(j) \wedge \tau_2(i) > \tau_2(j)) \ \vee \ (\tau_1(i) > \tau_1(j) \wedge \tau_2(i) < \tau_2(j)) \} |
 $$
 
 其中 $\tau_1(i)$ 和 $\tau_2(i)$ 分别表示元素 $i$ 在两个排序中的位置
